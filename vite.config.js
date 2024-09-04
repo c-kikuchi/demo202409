@@ -15,7 +15,7 @@ export default defineConfig({
   },
   base:"/demo202409/",
   build: {
-    //outDir:"docs",
+    outDir:"docs",
     //minify:false
   },
   //optimizeDeps:{
