@@ -1,0 +1,48 @@
+.iiwidget-input-elm {
+  display:flex;
+  align-items:center;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  max-height: 120px;
+  overflow: auto;
+  outline: none;
+  min-height: 1.5em;
+  line-height: 1.2em;
+  font-size: 12px;
+  font-family: Lato,sans-serif;
+}
+
+.iiwidget-label-elm {
+  font-size: 12px;
+  width:80px;
+  background-color:#666;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  line-height:1.2em;
+}
+
+.iiwidget-searcher-elm {
+  width:30px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.iiwidget-links-container {
+  display:flex;
+  flex-direction:column;
+  max-height:100px;
+  overflow-y:scroll;
+  line-height:1.2em;
+}
+
+.r6o-editor {
+  width:300px;
+}

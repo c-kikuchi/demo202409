@@ -111,18 +111,18 @@ input[type=checkbox]:checked.togglebutton+span {
         </select>
         <button :disabled="!this.prevPage" @click="this.currentPage=this.prevPage;setPage()">prev</button>
       </div>
-      <div class="ii-tag-control">
+      <!--<div class="ii-tag-control">
         <label role="button" aria-role="button"><input class="togglebutton" type="checkbox" v-model="is_annotating" @change="startAnnotationMode()"><span>⌖索引の作成</span></label>
         <label role="button" aria-role="button"><input class="togglebutton" type="checkbox" v-model="is_taggingmode" @change="startTagAnnotationMode()"><span>文書番号指定</span></label>
-      </div>
+      </div>-->
     </div>
   </div>
   <div ref="osd_elm" style="width:100%; height: 800px; background-color: #ccc;"></div>
   <div>
-    <div>
+    <!--<div>
       {{ currentPageUrl }}<br>
       {{ currentImageUrl }}
-    </div>
+    </div>-->
     <div>
       <button @click="exportAnnotationToJSON">Export JSON</button>
       <button @click="exportManifest">Export Manifest</button>
@@ -134,12 +134,12 @@ input[type=checkbox]:checked.togglebutton+span {
   </div>
   <div>
     <div>Annotations: {{this.annotations.length}} (in this page: {{this.currentAnnotations.length}})</div>
-    <div v-for="anno in annotations" :key="anno.id">
+    <!--<div v-for="anno in annotations" :key="anno.id">
       <details>
         <summary>{{anno.id}}</summary>
         <pre>{{JSON.stringify(anno, null, 2)}}</pre>
       </details>
-    </div>
+    </div>-->
   </div>
 </div>
 <div class="ii-side-pane" :class="{show:is_sidepane_shown}"></div>
@@ -147,9 +147,9 @@ input[type=checkbox]:checked.togglebutton+span {
 </template>
 <script>
   import "./components/annotorious.min.css";
-  import "./components/formatter.css"
+  import "./components/formatter.css";
+  import "./components/widgets.css";
   import OpenSeadragon from "openseadragon";
-  import Tako from './components/tako.js'; 
   import OSDAnnotorious from './components/openseadragon-annotorious.min.js';
   import widgetBuilder from "./components/widgets.js";
   import formatterBuilder from "./components/formatter.js";
@@ -341,7 +341,7 @@ input[type=checkbox]:checked.togglebutton+span {
       },
       async demo_openDefault(){
         const annotations = await fetch("/iike/default.json").then(resp=>resp.json());
-        app.$store.commit("addAnnotationByList", annotations);
+        app.$store.commit("setAnnotations", annotations);
         this.setPage();
         console.log("default loaded");
       }
@@ -396,6 +396,7 @@ input[type=checkbox]:checked.togglebutton+span {
         widgets:widgetBuilder(bridge),
         formatter:formatterBuilder(bridge)
       });
+      anno.readOnly = true;
       anno.on("createSelection", selection=>{
         console.log(selection);
       })
@@ -419,6 +420,8 @@ input[type=checkbox]:checked.togglebutton+span {
       this.anno = anno;
       this.setPage();
       window.app = this;
+
+      //this.demo_openDefault();
     }
   };
 
