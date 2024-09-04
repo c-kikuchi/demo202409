@@ -20,7 +20,11 @@ const describing_keys = ["見出し語","原文表記","肩書き","メモ","巻
 
 function simpleCommentingWidget(obj){
   const elm = document.createElement("div");
-  elm.style.fontSize="12px";
+  elm.style.cssText=`
+    font-size:12px;
+    line-height:1.2em;
+    padding:5px;
+  `;
   obj.annotation.bodies.filter(body=>{
     if(body.purpose == "commenting" || body.purpose == "replying" || !body.purpose){
       elm.insertAdjacentHTML("beforeend",`<p>${body.value}</p>`);

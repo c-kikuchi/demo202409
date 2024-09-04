@@ -4,7 +4,9 @@ const store = createStore({
   state(){
     return {
       annotations:[],
-      annotations_IDSet:new Set()
+      annotations_IDSet:new Set(),
+      ocrs:[],
+      ocrs_IDSet:new Set(),
     }
   },
   mutations:{
@@ -40,6 +42,16 @@ const store = createStore({
         }
       });
       state.annotations.push(...addlist);
+    },
+    setOcrs(state,list){
+      const addlist = [];
+      list.forEach(annot=>{
+        if(!state.ocrs_IDSet.has(annot.id)){
+          state.ocrs_IDSet.add(annot.id);
+          addlist.push(annot);
+        }
+      });
+      state.ocrs.push(...addlist);
     }
   }
 });

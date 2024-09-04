@@ -132,6 +132,12 @@ input[type=checkbox]:checked.togglebutton+span {
         <label role="button" aria-role="button"><input class="togglebutton" type="checkbox" v-model="is_annotating" @change="startAnnotationMode()"><span>⌖索引の作成</span></label>
         <label role="button" aria-role="button"><input class="togglebutton" type="checkbox" v-model="is_taggingmode" @change="startTagAnnotationMode()"><span>文書番号指定</span></label>
       </div>-->
+      <div>
+        <label>
+          <input type="checkbox" v-model="show_ocrs" @change="demo_show_ocr()">
+          <span style="color:#fff;font-size:small;">OCR結果を表示</span>
+        </label>
+      </div>
     </div>
   </div>
   <div class="ii-image-viewer" ref="osd_elm"></div>
@@ -189,6 +195,7 @@ input[type=checkbox]:checked.togglebutton+span {
         viewer:null,
         anno:null,
         metalist:metalist,
+        show_ocrs:false,
       };
     },
     computed:{
@@ -217,8 +224,10 @@ input[type=checkbox]:checked.togglebutton+span {
         return meta;
       },
       annotations(){
-        //console.log("a");
-        return this.$store.state.annotations;
+        console.log("a");
+        return !this.show_ocrs?
+          this.$store.state.annotations:
+          this.$store.state.annotations.concat(this.$store.state.ocrs);
       },
       jsonUrlRoot(){
         return this.meta.jsonUrl.server+this.meta.jsonUrl.prefix+this.meta.identifier+this.meta.jsonUrl.suffix;
@@ -290,7 +299,7 @@ input[type=checkbox]:checked.togglebutton+span {
         const annotations = JSON.parse(text);
         if(annotations.length>0 /*&& confirm("Overwrite Annotations?")*/){
           //this.annotations = annotations;
-          this.$store.commit("addAnnotationByList", annotations);
+          this.$store.commit("setAnnotations", annotations);
           this.setPage();
         }
       },
@@ -365,6 +374,13 @@ input[type=checkbox]:checked.togglebutton+span {
         app.$store.commit("setAnnotations", annotations);
         this.setPage();
         console.log("default loaded");
+      },
+      async demo_show_ocr(){
+        if(this.show_ocrs){
+          const ocr_annots = await fetch("/demo202409/0115_manfest-mod_all.json").then(resp=>resp.json());
+          this.$store.commit("setOcrs", ocr_annots);
+        }
+        this.setPage();
       }
     },
     watch:{
