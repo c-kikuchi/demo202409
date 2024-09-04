@@ -1,10 +1,19 @@
 <style>
+body {
+  margin:0;
+}
+
 .ii-root {
   display:flex;
   flex-direction: row;
+  position:fixed;
+  inset:0;
 }
 .ii-main-pane {
   flex-grow:1;
+  display:flex;
+  flex-direction: column;
+  height:100vh;
 }
 .ii-side-pane {
   display:none;
@@ -49,6 +58,14 @@
 .ii-zoom-control button{
   width:22px;
   height:22px;
+}
+
+.ii-image-viewer {
+	width: 100%;
+	min-height: 800px;
+	background-color: rgb(204, 204, 204);
+	position: relative;
+	flex-grow: 1;
 }
 
 label{
@@ -117,7 +134,7 @@ input[type=checkbox]:checked.togglebutton+span {
       </div>-->
     </div>
   </div>
-  <div ref="osd_elm" style="width:100%; height: 800px; background-color: #ccc;"></div>
+  <div class="ii-image-viewer" ref="osd_elm"></div>
   <div>
     <!--<div>
       {{ currentPageUrl }}<br>
@@ -155,9 +172,13 @@ input[type=checkbox]:checked.togglebutton+span {
   import formatterBuilder from "./components/formatter.js";
   import manifestGenerator from "./components/generateManifest.js";
   import metalist from "../metalist.js";
+  import popmenu from "../components/popmenu.vue";
   import {RouterLink} from "vue-router";
 
   export default {
+    components:{
+      popmenu
+    },
     data(){
       return {
         is_taggingmode:false,

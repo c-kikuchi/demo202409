@@ -264,15 +264,6 @@ function MultiInputCommentingWidgetBuilder(labels, setDefaultValue=function(obj,
         })
       }
     });
-
-    /*let reloadflag = false;
-    const defaultValues = setDefaultValue(obj, current_bodies, current_values);
-    if(defaultValues){
-      defaultValues.forEach((v,i)=>current_values[i]=v);  
-      reloadflag=true;    
-    }*/
-
-    //console.log("checking default values |", current_bodies, current_values, defaultValues)
     const inputoptions = labels.map((label,i)=>{
       return {
         label:label,
@@ -283,11 +274,6 @@ function MultiInputCommentingWidgetBuilder(labels, setDefaultValue=function(obj,
 
     const container = twoInput.container;
     container.className = "r6o-widget comment editable ii-comment";
-    //const input_elms = [twoInput.input1, twoInput.input2];
-    
-    /*if(reloadflag){
-      add_comment(null, current_bodies, labels);
-    }*/
     return container;
   }
 
@@ -382,7 +368,7 @@ function IIWidgetsBuilder(bridge){
     IILinkingWidget,
     simpleCommentingWidget,
     //candidateSelectorWidget
-  ];
+  ].map(widget=>({widget:widget, force:"plainjs"}));
 }
 
 export default IIWidgetsBuilder
