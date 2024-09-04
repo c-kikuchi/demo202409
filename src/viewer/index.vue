@@ -149,7 +149,8 @@ input[type=checkbox]:checked.togglebutton+span {
   import "./components/annotorious.min.css";
   import "./components/formatter.css"
   import OpenSeadragon from "openseadragon";
-  import Tako from './components/tako.js';
+  import Tako from './components/tako.js'; 
+  import OSDAnnotorious from './components/openseadragon-annotorious.min.js';
   import widgetBuilder from "./components/widgets.js";
   import formatterBuilder from "./components/formatter.js";
   import manifestGenerator from "./components/generateManifest.js";
@@ -391,7 +392,7 @@ input[type=checkbox]:checked.togglebutton+span {
         fullPageButton: this.$refs.fullpagebutton,
         toolbar:this.$refs.toolbar_elm,
       });
-      const anno = Tako(this.viewer,{
+      const anno = OSDAnnotorious(this.viewer,{
         widgets:widgetBuilder(bridge),
         formatter:formatterBuilder(bridge)
       });
