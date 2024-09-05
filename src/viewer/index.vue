@@ -420,6 +420,9 @@ input[type=checkbox]:checked.togglebutton+span {
             });
           }
         }
+        else{
+          this.setPage();
+        }
       }
     },
     watch:{
