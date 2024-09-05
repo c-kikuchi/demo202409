@@ -194,7 +194,9 @@ input[type=checkbox]:checked.togglebutton+span {
   <div style="background-color:#0B8BEE;height:40px;color:#fff;padding-top:5px;">
     <label role="button" aria-role="button"><input type="checkbox" v-model="is_sidepane_shown" class="togglebutton"><span>Close</span></label>
   </div>
-  <div style="background-color:#fff;overflow-y:scroll;flex-grow:1"></div>
+  <div style="background-color:#fff;overflow-y:scroll;flex-grow:1">
+    <indexview :bookid="bookid"></indexview>
+  </div>
 </div>
 </main>
 </template>
@@ -209,11 +211,13 @@ input[type=checkbox]:checked.togglebutton+span {
   import manifestGenerator from "./components/generateManifest.js";
   import metalist from "../metalist.js";
   import popmenu from "../components/popmenu.vue";
+  import indexview from "../components/IndexView.vue";
   import {RouterLink} from "vue-router";
 
   export default {
     components:{
-      popmenu
+      popmenu,
+      indexview
     },
     data(){
       return {
@@ -340,8 +344,9 @@ input[type=checkbox]:checked.togglebutton+span {
         this.viewer.open(tilesource);
       },
       setPage(){
+        console.log("set page");
         this.openViewer();
-        this.is_internal_routing = true;
+        //this.is_internal_routing = true;
         this.$router.replace({path:`/viewer/${this.bookid}/${this.currentPage}`});
         this.anno.setAnnotations(this.currentAnnotations);
       },
@@ -419,13 +424,14 @@ input[type=checkbox]:checked.togglebutton+span {
     },
     watch:{
       $route(to,from){
-        //console.log(to,from);
+        console.log("route",from.params.page,to.params.page,this.currentPage)//to.params.bookid,from.params.bookid);
         if(this.is_internal_routing){
           this.is_internal_routing = false;
           //console.log("internal");
           return;
         }
         if(to.params.page != from.params.page){
+          console.log("change page");
           this.currentPage = to.params.page;
         }
         if(to.params.bookid != from.params.bookid){
