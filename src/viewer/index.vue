@@ -20,7 +20,22 @@ body {
 }
 .ii-side-pane.show {
   display: flex;
-  min-width:200px;
+  flex-direction: column;
+  min-width:350px;
+}
+
+@media screen and (max-width:480px) {
+  .ii-side-pane.show{
+    position:fixed;
+    inset:0;
+    width:100vw;
+  }
+}
+
+.ii-header .side-menu{
+  display:flex;
+  height:100%;
+  align-items:center;
 }
 
 
@@ -99,10 +114,10 @@ input[type=checkbox]:checked.togglebutton+span {
 <main class="ii-root">
 <div class="ii-main-pane">
   <div class="ii-header">
-    <div style="float:left;"><RouterLink to="/"><strong>&lt;Home</strong></RouterLink></div>
-    <!--<div style="float:right">
-      <input type="checkbox" v-model="is_sidepane_shown">
-    </div>-->
+    <div class="side-menu" style="float:left"><RouterLink to="/" style="color:#333;"><strong>&lt;Home</strong></RouterLink></div>
+    <div class="side-menu" style="float:right;padding-right:10px;">
+      <label role="button" aria-role="button" v-show="!is_sidepane_shown"><input type="checkbox" v-model="is_sidepane_shown" class="togglebutton"><span>三</span></label>
+    </div>
     <!--<div style="float:right;">
       <details>
         <summary><strong>…</strong></summary>
@@ -165,7 +180,12 @@ input[type=checkbox]:checked.togglebutton+span {
     </div>-->
   </div>
 </div>
-<div class="ii-side-pane" :class="{show:is_sidepane_shown}"></div>
+<div class="ii-side-pane" :class="{show:is_sidepane_shown}" style="border-left:1px solid #666">
+  <div style="background-color:#0B8BEE;height:40px;color:#fff;padding-top:5px;">
+    <label role="button" aria-role="button"><input type="checkbox" v-model="is_sidepane_shown" class="togglebutton"><span>Close</span></label>
+  </div>
+  <div style="background-color:#fff;overflow-y:scroll;flex-grow:1"></div>
+</div>
 </main>
 </template>
 <script>
