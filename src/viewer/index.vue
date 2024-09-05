@@ -51,6 +51,16 @@ body {
   height:100%;
   gap:18px;
 }
+@media screen and (max-width:360px) {
+  .ii-toolbar{
+    height:90px;
+  }
+  .ii-toolbar-controls{
+    flex-direction: column;
+    gap:3px;
+  }
+}
+
 .ii-toolbar-controls button{
   background-color:#0B8BEE;
   border: solid 1px #ccc;
