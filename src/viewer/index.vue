@@ -141,7 +141,7 @@ input[type=checkbox]:checked.togglebutton+span {
     </div>
   </div>
   <div class="ii-image-viewer" ref="osd_elm"></div>
-  <div>
+  <div style="display:none;">
     <!--<div>
       {{ currentPageUrl }}<br>
       {{ currentImageUrl }}
@@ -155,7 +155,7 @@ input[type=checkbox]:checked.togglebutton+span {
       <button @click="demo_openDefault">(DEMO)load demo json</button>
     </div>
   </div>
-  <div>
+  <div style="display:none;">
     <div>Annotations: {{this.annotations.length}} (in this page: {{this.currentAnnotations.length}})</div>
     <!--<div v-for="anno in annotations" :key="anno.id">
       <details>
