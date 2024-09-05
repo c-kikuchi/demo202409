@@ -7,6 +7,7 @@ const store = createStore({
       annotations_IDSet:new Set(),
       ocrs:[],
       ocrs_IDSet:new Set(),
+      json_loaded:new Set(),
     }
   },
   mutations:{
@@ -52,6 +53,24 @@ const store = createStore({
         }
       });
       state.ocrs.push(...addlist);
+    }
+  },
+  actions:{
+    async loadJSON(context, url){
+      //const url = payload.url;
+      if(!context.state.json_loaded.has(url)){
+        context.state.json_loaded.add(url);
+        const json = await fetch(url).then(resp=>resp.json());
+        context.commit("setAnnotations", json);
+      }
+    },
+    async loadOCR(context, url){
+      //const url = payload.url;
+      if(!context.state.json_loaded.has(url)){
+        context.state.json_loaded.add(url);
+        const json = await fetch(url).then(resp=>resp.json());
+        context.commit("setOcrs", json);
+      }
     }
   }
 });

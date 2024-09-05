@@ -22,7 +22,9 @@ export default {
       "width":2112,
       "height":3200,
       "width_excep":[],
-      "height_excep":[]
+      "height_excep":[],
+      "annotation_json":"/demo202409/json/0115_annotation-1725353371461X.json",
+      "ocr_json":"/demo202409/json/0115_manfest-mod_all.json"
     },
     {
       "bookid":"iike-20",

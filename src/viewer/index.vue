@@ -377,10 +377,14 @@ input[type=checkbox]:checked.togglebutton+span {
       },
       async demo_show_ocr(){
         if(this.show_ocrs){
-          const ocr_annots = await fetch("/demo202409/0115_manfest-mod_all.json").then(resp=>resp.json());
-          this.$store.commit("setOcrs", ocr_annots);
+          //const ocr_annots = await fetch(location.origin+"/demo202409/json/0115_manfest-mod_all.json").then(resp=>resp.json());
+          //this.$store.commit("setOcrs", ocr_annots);
+          if(this.meta["ocr_json"]){
+            this.$store.dispatch("loadOCR", location.origin + this.meta["ocr_json"]).then(r=>{
+              this.setPage();
+            });
+          }
         }
-        this.setPage();
       }
     },
     watch:{
@@ -395,6 +399,12 @@ input[type=checkbox]:checked.togglebutton+span {
           this.currentPage = to.params.page;
         }
         if(to.params.bookid != from.params.bookid){
+          console.log("change book");
+          if(this.meta["annotation_json"]){
+            this.$store.dispatch("loadJSON", location.origin + this.meta["annotation_json"]).then(r=>{
+              this.setPage();
+            });
+          }
           this.currentPage = to.params.page||this.meta.pages[0];
         }
         this.setPage();
@@ -455,8 +465,13 @@ input[type=checkbox]:checked.togglebutton+span {
       });
       
       this.anno = anno;
+      if(this.meta["annotation_json"]){
+        this.$store.dispatch("loadJSON", location.origin + this.meta["annotation_json"]).then(r=>{
+          this.setPage();
+        });
+      }
       this.setPage();
-      window.app = this;
+      //window.app = this;
 
       //this.demo_openDefault();
     }
