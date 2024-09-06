@@ -37,6 +37,10 @@ h3::before {
 	margin: auto;
 	width: fit-content;
   font-weight:bold;
+  text-decoration: none;
+}
+.main_link:hover {
+  text-decoration: underline ;
 }
 ul.link-list {
   list-style-type:none;

@@ -25,10 +25,19 @@ body {
 }
 
 @media screen and (max-width:480px) {
-  .ii-side-pane.show{
+  .ii-side-pane.show::before{
+    content:"";
     position:fixed;
     inset:0;
     width:100vw;
+    background-color: rgba(0,0,0,0.3);
+    z-index:-1;
+  }
+  .ii-side-pane.show{
+    position:fixed;
+    inset:5px;
+    width:calc(100vw - 10px);
+    border:1px solid #333;
   }
 }
 
@@ -195,7 +204,7 @@ input[type=checkbox]:checked.togglebutton+span {
     <label role="button" aria-role="button"><input type="checkbox" v-model="is_sidepane_shown" class="togglebutton"><span>Close</span></label>
   </div>
   <div style="background-color:#fff;overflow-y:scroll;flex-grow:1">
-    <indexview :bookid="bookid"></indexview>
+    <indexview :bookid="bookid" @index-clicked="indexClicked()"></indexview>
   </div>
 </div>
 </main>
@@ -403,6 +412,11 @@ input[type=checkbox]:checked.togglebutton+span {
         //const viewport_content = this.viewer.world.getItemAt(0).getContent();
         console.log("dimensions |", dimensions.x, dimensions.y);
         //console.log("viewport |", viewport_content.x, viewport_content.y);
+      },
+      indexClicked(){
+        if(window.matchMedia("(max-width:480px)").matches){
+          this.is_sidepane_shown = false;
+        }
       },
       async demo_openDefault(){
         const annotations = await fetch("/iike/default.json").then(resp=>resp.json());

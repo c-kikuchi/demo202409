@@ -1,11 +1,26 @@
+<style scoped>
+
+.index-list {
+  font-size: small;
+}
+.index-list li:hover{
+  background-color: rgb(168, 197, 250);
+}
+.index-list li a {
+  color:#333;
+}
+.index-list li:hover a {
+  color:#00f;
+}
+</style>
 <template>
-  <div style="width:300px;">
-    <ol style="font-size:small;">
+  <div style="width:360px;">
+    <ul class="index-list">
       <li v-for="index in currentIndex">
         {{index.date}} 
-        <RouterLink :to="'/viewer/'+bookid+'/'+index.page">{{ index.title }}</RouterLink>
+        <RouterLink :to="'/viewer/'+bookid+'/'+index.page" @click="$emit('indexClicked')">{{ index.title }}</RouterLink>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 <script>
